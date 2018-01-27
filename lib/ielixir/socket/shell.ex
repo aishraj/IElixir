@@ -26,9 +26,8 @@ defmodule IElixir.Socket.Shell do
     {:ok, {sock, []}}
   end
 
-  def terminate(_reason, {sock, _}) do
+  def terminate(_reason, {_sock, _}) do
     Logger.debug("Shutdown Shell")
-    :erlzmq.close(sock)
   end
 
   def handle_info(message = {:zmq, _, _, _}, state) do

@@ -17,14 +17,13 @@ defmodule IElixir.Socket.Heartbeat do
     {:ok, sock}
   end
 
-  def terminate(_reason, sock) do
+  def terminate(_reason, _sock) do
     Logger.debug("Shutdown Heartbeat")
-    :erlzmq.close(sock)
   end
 
   def handle_info({:zmq, _, data, []}, sock) do
     Logger.debug("Heartbeat ping received")
-    :erlzmq.send(sock, data)
+    :chumak.send(sock, data)
     {:noreply, sock}
   end
   def handle_info(msg, state) do

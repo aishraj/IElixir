@@ -25,9 +25,8 @@ defmodule IElixir.Socket.StdIn do
     {:ok, sock}
   end
 
-  def terminate(_reason, sock) do
+  def terminate(_reason, _sock) do
     Logger.debug("Shutdown StdIn")
-    :erlzmq.close(sock)
   end
 
   def handle_info({:zmq, _, _data, []}, sock) do

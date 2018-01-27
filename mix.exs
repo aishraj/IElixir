@@ -21,11 +21,11 @@ defmodule IElixir.Mixfile do
 
   def application do
     [mod: {IElixir, []},
-     applications: [:logger, :iex, :sqlite_ecto, :ecto, :erlzmq, :poison, :uuid]]
+     applications: [:logger, :iex, :sqlite_ecto, :ecto, :chumak, :poison, :uuid]]
   end
 
   defp deps do
-    [{:erlzmq, github: "zeromq/erlzmq2", compile: "make"},
+    [{:chumak, "~> 1.2"},
      {:poison, "~> 1.0"},
      {:uuid, github: "okeuday/uuid"},
 

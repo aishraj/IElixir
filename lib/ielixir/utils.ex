@@ -28,10 +28,9 @@ defmodule IElixir.Utils do
   @doc false
   def make_socket(opts, socket_name, type) do
     conn_info = opts[:conn_info]
-    {:ok, sock} = :erlzmq.socket(opts[:ctx], [type, {:active, type != :pub }])
-    url = conn_info["transport"] <> "://" <> conn_info["ip"] <> ":" <> Integer.to_string(conn_info[socket_name <> "_port"])
-    :ok = :erlzmq.bind(sock, url)
-    Logger.debug("Initializing " <> socket_name <> " agent on url: " <> url)
+    {:ok, sock} = :chumak.socket(type, String.to_charlist(socket_name))
+    {:ok, _spid} = :chumak.bind(sock, String.to_atom(conn_info["transport"]), String.to_charlist(conn_info["ip"]), conn_info[socket_name <> "_port"])
+    Logger.debug("Initializing " <> socket_name <> " on " <> conn_info["transport"] <> "://" <> conn_info["ip"] <> ":" <> Integer.to_string(conn_info[socket_name <> "_port"]))
     sock
   end
 end

@@ -85,15 +85,6 @@ defmodule IElixir.Message do
       "metadata": %{},
       "content": content,
     }
-    send_all(sock, encode(new_message))
-  end
-
-  @doc false
-  def send_all(sock, [message]) do
-    :ok = :erlzmq.send(sock, message, [])
-  end
-  def send_all(sock, [message | other_messages]) do
-    :ok = :erlzmq.send(sock, message, [:sndmore])
-    send_all(sock, other_messages)
+    :chumak.send_multipart(sock, [encode(new_message)])
   end
 end
